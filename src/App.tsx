@@ -17,6 +17,7 @@ import Security from "@/pages/Security";
 import Terms from "@/pages/Terms";
 import NotFound from "@/pages/NotFound";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
 
 // Dashboard feature pages
 import BrandAnalyzer from "@/pages/dashboard/BrandAnalyzer";
@@ -40,34 +41,36 @@ const App = () => (
     <TooltipProvider>
       <BrowserRouter>
         <AuthProvider>
-          <Toaster />
-          <Sonner />
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/sign-in" element={<Dashboard />} /> {/* Redirect to dashboard */}
-            <Route path="/sign-up" element={<Dashboard />} /> {/* Redirect to dashboard */}
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/security" element={<Security />} />
-            <Route path="/terms" element={<Terms />} />
-            
-            {/* Protected routes - now directly accessible */}
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/dashboard/optimize" element={<Optimize />} />
-            <Route path="/dashboard/brand-analyzer" element={<BrandAnalyzer />} />
-            <Route path="/dashboard/strategy" element={<ContentStrategy />} />
-            <Route path="/dashboard/calendar" element={<ContentCalendar />} />
-            <Route path="/dashboard/writer" element={<ContentWriter />} />
-            <Route path="/dashboard/share" element={<PostShare />} />
-            <Route path="/dashboard/settings" element={<Settings />} />
-            
-            {/* Module pages */}
-            <Route path="/modules/brand-analyzer" element={<BrandAnalyzerModule />} />
-            
-            {/* Catch-all route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AIAssistantProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/sign-in" element={<Dashboard />} /> {/* Redirect to dashboard */}
+              <Route path="/sign-up" element={<Dashboard />} /> {/* Redirect to dashboard */}
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/security" element={<Security />} />
+              <Route path="/terms" element={<Terms />} />
+              
+              {/* Protected routes - now directly accessible */}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/optimize" element={<Optimize />} />
+              <Route path="/dashboard/brand-analyzer" element={<BrandAnalyzer />} />
+              <Route path="/dashboard/strategy" element={<ContentStrategy />} />
+              <Route path="/dashboard/calendar" element={<ContentCalendar />} />
+              <Route path="/dashboard/writer" element={<ContentWriter />} />
+              <Route path="/dashboard/share" element={<PostShare />} />
+              <Route path="/dashboard/settings" element={<Settings />} />
+              
+              {/* Module pages */}
+              <Route path="/modules/brand-analyzer" element={<BrandAnalyzerModule />} />
+              
+              {/* Catch-all route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AIAssistantProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import AIAssistant from "@/components/ai/AIAssistant";
+import AIAssistantToggle from "@/components/ai/AIAssistantToggle";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -127,10 +129,10 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <User className="h-4 w-4 text-white" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium">John Doe</p>
-              <Link to="/sign-in" className="text-xs text-muted-foreground flex items-center">
+              <p className="text-sm font-medium">{firstName} {lastName}</p>
+              <button onClick={signOut} className="text-xs text-muted-foreground flex items-center">
                 <LogOut className="h-3 w-3 mr-1" /> Logout
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -147,10 +149,18 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           </button>
           <div className="ml-4 text-xl font-bold text-brand-purple">AuthorityX</div>
         </div>
-        <main className="flex-1">
+        <main className="flex-1 relative">
           <div className="py-6 px-4 sm:px-6 lg:px-8">
             {children}
           </div>
+          
+          {/* AI Assistant Toggle */}
+          <div className="fixed bottom-6 right-6 z-40">
+            <AIAssistantToggle />
+          </div>
+          
+          {/* AI Assistant Panel */}
+          <AIAssistant />
         </main>
       </div>
     </div>
