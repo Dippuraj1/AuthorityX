@@ -8,20 +8,32 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Linkedin } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const { signIn, loading } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (email && password) {
+    setErrorMessage("");
+    
+    if (!email || !password) {
+      setErrorMessage("Please enter both email and password");
+      return;
+    }
+    
+    try {
       await signIn(email, password);
       if (rememberMe) {
         localStorage.setItem("authorityx-email", email);
       }
+    } catch (error: any) {
+      console.error("Sign in form error:", error);
+      setErrorMessage(error.message || "Failed to sign in. Please check your credentials.");
     }
   };
 
@@ -46,6 +58,12 @@ const SignIn = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {errorMessage && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertDescription>{errorMessage}</AlertDescription>
+              </Alert>
+            )}
+            
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
