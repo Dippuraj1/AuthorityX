@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ArrowRight, Star } from "lucide-react";
 
 const HeroSection = () => {
   // Function to scroll to a section smoothly
@@ -12,34 +13,51 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="bg-brand-deeper-purple text-white pt-20 pb-32 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div className="space-y-8">
-            <h1 className="text-5xl md:text-6xl font-bold">
-              Elevate Your <span className="text-brand-purple">Personal Brand</span> with AI
+    <section className="bg-gradient-to-b from-brand-deeper-purple to-background text-white pt-20 pb-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="max-w-7xl mx-auto relative">
+        {/* Background decorative elements */}
+        <div className="absolute top-20 right-10 w-64 h-64 bg-brand-purple/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative z-10">
+          <div className="space-y-8 animate-fade-in-up">
+            <div className="inline-flex items-center px-3 py-1 rounded-full border border-brand-purple/50 bg-brand-purple/10 text-sm mb-4">
+              <Star className="w-4 h-4 mr-2 text-brand-purple" />
+              <span>Rated #1 Personal Branding Platform</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+              Elevate Your <span className="bg-gradient-to-r from-brand-purple to-brand-light-purple bg-clip-text text-transparent">Personal Brand</span> with AI
             </h1>
-            <p className="text-xl opacity-80">
+            
+            <p className="text-xl text-gray-300">
               AuthorityX is the all-in-one solution that helps professionals automate and optimize their personal branding content strategy.
             </p>
-            <div className="space-x-4 pt-4">
+            
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link to="/sign-up">
-                <Button className="bg-brand-purple hover:bg-brand-dark-purple text-white px-8 py-6 text-lg">
+                <Button className="bg-brand-purple hover:bg-brand-dark-purple text-white px-8 py-6 text-lg w-full sm:w-auto button-glow transition-all duration-300 group">
                   Get Started Free
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
               </Link>
+              
               <Button 
                 variant="outline" 
-                className="text-white border-white hover:bg-white/10 px-8 py-6 text-lg"
+                className="border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg w-full sm:w-auto transition-all duration-300"
                 onClick={() => scrollToSection("features")}
               >
                 View Features
               </Button>
             </div>
-            <div className="flex items-center space-x-4 pt-4">
-              <div className="flex -space-x-2">
+            
+            <div className="flex items-center space-x-4 pt-4 opacity-90">
+              <div className="flex -space-x-3">
                 {[...Array(4)].map((_, i) => (
-                  <div key={i} className="h-8 w-8 rounded-full bg-brand-purple/80 border-2 border-brand-deeper-purple"></div>
+                  <div key={i} className="h-10 w-10 rounded-full border-2 border-background" style={{
+                    backgroundImage: `url(https://randomuser.me/api/portraits/${i % 2 === 0 ? 'men' : 'women'}/${i + 5}.jpg)`,
+                    backgroundSize: 'cover'
+                  }}></div>
                 ))}
               </div>
               <p className="text-sm">
@@ -47,12 +65,14 @@ const HeroSection = () => {
               </p>
             </div>
           </div>
-          <div className="relative bg-card/10 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300">
-            <div className="w-full">
+          
+          <div className="relative animate-fade-in-up animate-delay-200">
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-purple/20 to-brand-blue/20 rounded-2xl blur-2xl -z-10 transform rotate-3"></div>
+            <div className="glassmorphism p-4 transform hover:scale-[1.01] hover:shadow-glow transition-all duration-500 animate-float">
               <img 
                 src="/placeholder.svg" 
                 alt="Brand Analytics Dashboard" 
-                className="w-full h-full object-cover rounded-lg p-4"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
           </div>

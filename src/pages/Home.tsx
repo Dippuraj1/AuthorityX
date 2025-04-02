@@ -7,12 +7,37 @@ import FeaturesSection from "@/components/home/FeaturesSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import PricingSection from "@/components/home/PricingSection";
 import CTASection from "@/components/home/CTASection";
+import { useEffect } from "react";
 
 const Home = () => {
+  // Add scroll reveal effect for sections
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll("section").forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => {
+      document.querySelectorAll("section").forEach((section) => {
+        observer.unobserve(section);
+      });
+    };
+  }, []);
+
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="pt-16">
+      <div className="flex-grow pt-16">
         {/* Sectioned Components */}
         <HeroSection />
         <FeaturesSection />
@@ -26,7 +51,7 @@ const Home = () => {
         <CTASection />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -36,15 +36,6 @@
     --ring: 252 82% 74%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 260 10% 8%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 252 82% 74%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 260 10% 15%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 260 10% 15%;
-    --sidebar-ring: 252 82% 74%;
   }
 }
 
@@ -60,6 +51,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
+    font-family: 'Poppins', sans-serif;
   }
 
   h1 {
@@ -87,10 +79,91 @@
   }
 
   .btn {
-    @apply rounded-lg font-bold transition-all duration-200 hover:shadow-[0_0_15px_rgba(30,174,219,0.5)];
+    @apply rounded-lg font-bold transition-all duration-200 hover:shadow-[0_0_15px_rgba(155,135,245,0.5)];
   }
 
   .card {
-    @apply rounded-lg shadow-md;
+    @apply rounded-lg shadow-lg backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300;
   }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300;
+  }
+
+  .section-title {
+    @apply relative inline-block;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-brand-purple rounded-full;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+.hover-scale {
+  @apply transition-transform duration-300;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.glassmorphism {
+  @apply bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-xl shadow-lg;
+}
+
+.button-glow:hover {
+  box-shadow: 0 0 15px rgba(155, 135, 245, 0.7);
 }
