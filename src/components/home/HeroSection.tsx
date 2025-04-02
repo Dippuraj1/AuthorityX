@@ -8,7 +8,7 @@ const HeroSection = () => {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
   return (
-    <section className="relative pt-32 py-20 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
+    <section className="relative pt-32 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700"></div>
