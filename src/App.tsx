@@ -21,6 +21,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 // Dashboard feature pages
 import BrandAnalyzer from "@/pages/dashboard/BrandAnalyzer";
 import BrandAnalyzerModule from "@/pages/modules/BrandAnalyzer";
+import ContentStrategy from "@/pages/dashboard/ContentStrategy";
+import ContentCalendar from "@/pages/dashboard/ContentCalendar";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +53,8 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/optimize" element={<Optimize />} />
             <Route path="/dashboard/brand-analyzer" element={<BrandAnalyzer />} />
+            <Route path="/dashboard/strategy" element={<ContentStrategy />} />
+            <Route path="/dashboard/calendar" element={<ContentCalendar />} />
             
             {/* Module pages */}
             <Route path="/modules/brand-analyzer" element={<BrandAnalyzerModule />} />
