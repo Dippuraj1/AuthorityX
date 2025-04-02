@@ -1,9 +1,13 @@
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import BookingModal from "./BookingModal";
 
 const CTASection = () => {
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-brand-purple/10 via-background to-brand-purple/10 text-foreground relative overflow-hidden">
       {/* Background elements */}
@@ -46,13 +50,18 @@ const CTASection = () => {
             </Button>
           </Link>
           
-          <Link to="/contact">
-            <Button variant="outline" className="border-brand-purple/30 text-foreground hover:bg-brand-purple/10 px-8 py-6 text-lg">
-              Schedule Demo
-            </Button>
-          </Link>
+          <Button 
+            variant="outline" 
+            className="border-brand-purple/30 text-foreground hover:bg-brand-purple/10 px-8 py-6 text-lg"
+            onClick={() => setBookingModalOpen(true)}
+          >
+            Schedule Demo
+          </Button>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal open={bookingModalOpen} onOpenChange={setBookingModalOpen} />
     </section>
   );
 };

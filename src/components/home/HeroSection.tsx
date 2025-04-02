@@ -47,7 +47,7 @@ const HeroSection = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white text-white hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm"
+              className="border-white text-gray-800 hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm"
               onClick={() => setVideoModalOpen(true)}
             >
               Watch Demo

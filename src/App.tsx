@@ -12,6 +12,9 @@ import SignUp from "@/pages/SignUp";
 import Dashboard from "@/pages/Dashboard";
 import Optimize from "@/pages/modules/Optimize";
 import Blog from "@/pages/Blog";
+import About from "@/pages/About";
+import Careers from "@/pages/Careers";
+import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
 import Security from "@/pages/Security";
 import Terms from "@/pages/Terms";
@@ -50,6 +53,9 @@ const App = () => (
               <Route path="/sign-in" element={<Dashboard />} /> {/* Redirect to dashboard */}
               <Route path="/sign-up" element={<Dashboard />} /> {/* Redirect to dashboard */}
               <Route path="/blog" element={<Blog />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/security" element={<Security />} />
               <Route path="/terms" element={<Terms />} />
