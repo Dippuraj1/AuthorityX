@@ -9,8 +9,17 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import Newsletter from "@/components/Newsletter";
 
 const Home = () => {
+  // Function to scroll to a section smoothly
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -32,11 +41,13 @@ const Home = () => {
                       Get Started Free
                     </Button>
                   </Link>
-                  <Link to="/features">
-                    <Button variant="outline" className="text-white border-white hover:bg-white/10 px-8 py-6 text-lg">
-                      View Features
-                    </Button>
-                  </Link>
+                  <Button 
+                    variant="outline" 
+                    className="text-white border-white hover:bg-white/10 px-8 py-6 text-lg"
+                    onClick={() => scrollToSection("features")}
+                  >
+                    View Features
+                  </Button>
                 </div>
                 <div className="flex items-center space-x-4 pt-4">
                   <div className="flex -space-x-2">
@@ -49,21 +60,13 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-              <div className="relative bg-card rounded-xl shadow-2xl overflow-hidden">
-                <div className="aspect-w-16 aspect-h-9">
-                  <div className="bg-gradient-to-tr from-brand-purple/30 to-brand-blue/30 w-full h-full rounded-xl p-4">
-                    <div className="h-full w-full bg-card rounded-lg flex items-center justify-center">
-                      <div className="text-center px-4">
-                        <div className="mx-auto w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mb-4">
-                          <BarChart3 className="h-8 w-8 text-brand-purple" />
-                        </div>
-                        <h3 className="text-xl font-bold">Analyze Your Brand</h3>
-                        <p className="text-muted-foreground mt-2">
-                          Discover your unique brand archetype and voice
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+              <div className="relative bg-card/10 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300">
+                <div className="w-full">
+                  <img 
+                    src="/placeholder.svg" 
+                    alt="Brand Analytics Dashboard" 
+                    className="w-full h-full object-cover rounded-lg p-4"
+                  />
                 </div>
               </div>
             </div>
@@ -71,7 +74,7 @@ const Home = () => {
         </section>
 
         {/* Features Section */}
-        <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
+        <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 relative">
           <div className="absolute inset-0 bg-gradient-to-b from-brand-deeper-purple to-background h-32"></div>
           <div className="max-w-7xl mx-auto relative">
             <div className="text-center mb-16">
@@ -82,7 +85,7 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <Card className="bg-card border-border hover:border-brand-purple/50 transition-colors">
+              <Card className="bg-card/70 backdrop-blur-md border-border hover:border-brand-purple/50 transition-all duration-300 transform hover:-translate-y-1">
                 <CardContent className="p-6 text-center">
                   <div className="mx-auto w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mb-4">
                     <BarChart3 className="h-8 w-8 text-brand-purple" />
@@ -94,7 +97,7 @@ const Home = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border-border hover:border-brand-purple/50 transition-colors">
+              <Card className="bg-card/70 backdrop-blur-md border-border hover:border-brand-purple/50 transition-all duration-300 transform hover:-translate-y-1">
                 <CardContent className="p-6 text-center">
                   <div className="mx-auto w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mb-4">
                     <PenTool className="h-8 w-8 text-brand-purple" />
@@ -106,7 +109,7 @@ const Home = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border-border hover:border-brand-purple/50 transition-colors">
+              <Card className="bg-card/70 backdrop-blur-md border-border hover:border-brand-purple/50 transition-all duration-300 transform hover:-translate-y-1">
                 <CardContent className="p-6 text-center">
                   <div className="mx-auto w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mb-4">
                     <Calendar className="h-8 w-8 text-brand-purple" />
@@ -118,7 +121,7 @@ const Home = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border-border hover:border-brand-purple/50 transition-colors">
+              <Card className="bg-card/70 backdrop-blur-md border-border hover:border-brand-purple/50 transition-all duration-300 transform hover:-translate-y-1">
                 <CardContent className="p-6 text-center">
                   <div className="mx-auto w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mb-4">
                     <Share2 className="h-8 w-8 text-brand-purple" />
@@ -134,7 +137,7 @@ const Home = () => {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-24 bg-card px-4 sm:px-6 lg:px-8">
+        <section id="testimonials" className="py-24 bg-card/30 backdrop-blur-md px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">Loved by Professionals</h2>
@@ -152,7 +155,7 @@ const Home = () => {
               <TabsContent value="tab1">
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {[1, 2, 3].map((item) => (
-                    <Card key={item} className="bg-muted">
+                    <Card key={item} className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300">
                       <CardContent className="p-6">
                         <div className="flex mb-4">
                           {[...Array(5)].map((_, i) => (
@@ -177,7 +180,7 @@ const Home = () => {
               <TabsContent value="tab2">
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {[1, 2, 3].map((item) => (
-                    <Card key={item} className="bg-muted">
+                    <Card key={item} className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300">
                       <CardContent className="p-6">
                         <div className="flex mb-4">
                           {[...Array(5)].map((_, i) => (
@@ -202,7 +205,7 @@ const Home = () => {
               <TabsContent value="tab3">
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {[1, 2, 3].map((item) => (
-                    <Card key={item} className="bg-muted">
+                    <Card key={item} className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300">
                       <CardContent className="p-6">
                         <div className="flex mb-4">
                           {[...Array(5)].map((_, i) => (
@@ -229,7 +232,7 @@ const Home = () => {
         </section>
 
         {/* Pricing Section */}
-        <section className="py-24 px-4 sm:px-6 lg:px-8">
+        <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
@@ -240,7 +243,7 @@ const Home = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Free Plan */}
-              <Card className="bg-card border-border hover:border-brand-purple/50 transition-all">
+              <Card className="bg-card/70 backdrop-blur-md border-border hover:border-brand-purple/50 transition-all duration-300 transform hover:-translate-y-1">
                 <CardContent className="p-6 pt-8">
                   <div className="text-center mb-4">
                     <h3 className="text-xl font-bold">Free</h3>
@@ -277,7 +280,7 @@ const Home = () => {
               </Card>
 
               {/* Creator Plan */}
-              <Card className="bg-card border-brand-purple shadow-lg shadow-brand-purple/20 relative">
+              <Card className="bg-card/70 backdrop-blur-md border-brand-purple shadow-lg shadow-brand-purple/20 relative transform hover:-translate-y-1 transition-all duration-300">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-purple text-white px-4 py-1 rounded-full text-sm font-medium">
                   Most Popular
                 </div>
@@ -325,7 +328,7 @@ const Home = () => {
               </Card>
 
               {/* Pro Plan */}
-              <Card className="bg-card border-border hover:border-brand-purple/50 transition-all">
+              <Card className="bg-card/70 backdrop-blur-md border-border hover:border-brand-purple/50 transition-all duration-300 transform hover:-translate-y-1">
                 <CardContent className="p-6 pt-8">
                   <div className="text-center mb-4">
                     <h3 className="text-xl font-bold">Pro</h3>
@@ -376,6 +379,9 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Newsletter Section */}
+        <Newsletter />
+
         {/* CTA Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-brand-deeper-purple text-white">
           <div className="max-w-5xl mx-auto text-center">
@@ -384,7 +390,7 @@ const Home = () => {
               Join thousands of professionals using AuthorityX to build their personal brand and grow their online presence.
             </p>
             <Link to="/sign-up">
-              <Button className="bg-brand-purple hover:bg-brand-dark-purple text-white px-8 py-6 text-lg">
+              <Button className="bg-brand-purple hover:bg-brand-dark-purple text-white px-8 py-6 text-lg transform hover:scale-105 transition-all duration-300">
                 Get Started Free <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
