@@ -23,6 +23,8 @@ import BrandAnalyzer from "@/pages/dashboard/BrandAnalyzer";
 import BrandAnalyzerModule from "@/pages/modules/BrandAnalyzer";
 import ContentStrategy from "@/pages/dashboard/ContentStrategy";
 import ContentCalendar from "@/pages/dashboard/ContentCalendar";
+import ContentWriter from "@/pages/dashboard/ContentWriter";
+import PostShare from "@/pages/dashboard/PostShare";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +57,8 @@ const App = () => (
             <Route path="/dashboard/brand-analyzer" element={<BrandAnalyzer />} />
             <Route path="/dashboard/strategy" element={<ContentStrategy />} />
             <Route path="/dashboard/calendar" element={<ContentCalendar />} />
+            <Route path="/dashboard/writer" element={<ContentWriter />} />
+            <Route path="/dashboard/share" element={<PostShare />} />
             
             {/* Module pages */}
             <Route path="/modules/brand-analyzer" element={<BrandAnalyzerModule />} />
