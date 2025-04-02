@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -44,9 +43,10 @@ const Navbar = () => {
 
   // Get user initials for avatar fallback
   const getUserInitials = () => {
-    if (!user) return "U";
-    const email = user.email || "";
-    return email.charAt(0).toUpperCase();
+    if (!user) return "D";
+    const firstName = user.user_metadata?.first_name || "D";
+    const lastName = user.user_metadata?.last_name || "U";
+    return firstName.charAt(0).toUpperCase() + (lastName ? lastName.charAt(0).toUpperCase() : '');
   };
 
   // Smooth scroll to section
@@ -99,86 +99,68 @@ const Navbar = () => {
               Blog
             </Link>
             
-            {user ? (
-              <div className="flex items-center gap-4">
-                <Link to="/dashboard">
-                  <Button 
-                    variant="outline" 
-                    className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white transition-all duration-300"
-                  >
-                    Dashboard
-                  </Button>
-                </Link>
-                <Dialog>
-                  <DialogTrigger>
-                    <Avatar className="cursor-pointer border-2 border-transparent hover:border-brand-purple transition-all duration-300">
-                      <AvatarImage src={user.user_metadata?.avatar_url} />
-                      <AvatarFallback className="bg-brand-purple text-white">
-                        {getUserInitials()}
-                      </AvatarFallback>
-                    </Avatar>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px] bg-card/80 backdrop-blur-md border border-white/10">
-                    <DialogHeader>
-                      <DialogTitle>Profile</DialogTitle>
-                      <DialogDescription>
-                        Manage your account settings
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="flex flex-col gap-4 py-4">
-                      <div className="flex items-center gap-4">
-                        <Avatar className="h-16 w-16">
-                          <AvatarImage src={user.user_metadata?.avatar_url} />
-                          <AvatarFallback className="bg-brand-purple text-white text-xl">
-                            {getUserInitials()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="text-lg font-medium">
-                            {user.user_metadata?.first_name || ""} {user.user_metadata?.last_name || ""}
-                          </p>
-                          <p className="text-sm text-muted-foreground">{user.email}</p>
-                        </div>
-                      </div>
-                      <Button 
-                        variant="outline" 
-                        className="mt-2"
-                        onClick={() => signOut()}
-                      >
-                        Sign Out
-                      </Button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            ) : (
-              <>
-                <Link
-                  to="/sign-in"
-                  className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium transition-all duration-300"
-                >
-                  Sign In
-                </Link>
-                <Link to="/sign-up">
-                  <Button className="bg-brand-purple hover:bg-brand-dark-purple text-white transition-all duration-300 transform hover:scale-105 active:scale-95">
-                    Get Started Free
-                  </Button>
-                </Link>
-              </>
-            )}
-          </div>
-          <div className="flex md:hidden items-center">
-            {user && (
-              <Link to="/dashboard" className="mr-4">
+            <div className="flex items-center gap-4">
+              <Link to="/dashboard">
                 <Button 
                   variant="outline" 
-                  size="sm"
-                  className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white"
+                  className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white transition-all duration-300"
                 >
                   Dashboard
                 </Button>
               </Link>
-            )}
+              <Dialog>
+                <DialogTrigger>
+                  <Avatar className="cursor-pointer border-2 border-transparent hover:border-brand-purple transition-all duration-300">
+                    <AvatarImage src={user?.user_metadata?.avatar_url} />
+                    <AvatarFallback className="bg-brand-purple text-white">
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px] bg-card/80 backdrop-blur-md border border-white/10">
+                  <DialogHeader>
+                    <DialogTitle>Profile</DialogTitle>
+                    <DialogDescription>
+                      Manage your account settings
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="flex flex-col gap-4 py-4">
+                    <div className="flex items-center gap-4">
+                      <Avatar className="h-16 w-16">
+                        <AvatarImage src={user?.user_metadata?.avatar_url} />
+                        <AvatarFallback className="bg-brand-purple text-white text-xl">
+                          {getUserInitials()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-lg font-medium">
+                          {user?.user_metadata?.first_name || "Demo"} {user?.user_metadata?.last_name || "User"}
+                        </p>
+                        <p className="text-sm text-muted-foreground">{user?.email || "demo@example.com"}</p>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      className="mt-2"
+                      onClick={() => signOut()}
+                    >
+                      Sign Out
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+          <div className="flex md:hidden items-center">
+            <Link to="/dashboard" className="mr-4">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white"
+              >
+                Dashboard
+              </Button>
+            </Link>
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-brand-purple focus:outline-none transition-colors"
@@ -227,47 +209,30 @@ const Navbar = () => {
             >
               Blog
             </Link>
-            {user ? (
-              <div className="px-3 py-2">
-                <div className="flex items-center gap-3 mb-3">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src={user.user_metadata?.avatar_url} />
-                    <AvatarFallback className="bg-brand-purple text-white">
-                      {getUserInitials()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">
-                      {user.user_metadata?.first_name || ""} {user.user_metadata?.last_name || ""}
-                    </p>
-                    <p className="text-xs text-muted-foreground">{user.email}</p>
-                  </div>
+            <div className="px-3 py-2">
+              <div className="flex items-center gap-3 mb-3">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={user?.user_metadata?.avatar_url} />
+                  <AvatarFallback className="bg-brand-purple text-white">
+                    {getUserInitials()}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-medium">
+                    {user?.user_metadata?.first_name || "Demo"} {user?.user_metadata?.last_name || "User"}
+                  </p>
+                  <p className="text-xs text-muted-foreground">{user?.email || "demo@example.com"}</p>
                 </div>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="w-full"
-                  onClick={() => signOut()}
-                >
-                  Sign Out
-                </Button>
               </div>
-            ) : (
-              <>
-                <Link
-                  to="/sign-in"
-                  className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/sign-up"
-                  className="bg-brand-purple hover:bg-brand-dark-purple text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
-                >
-                  Get Started Free
-                </Link>
-              </>
-            )}
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="w-full"
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </Button>
+            </div>
           </div>
         </div>
       )}

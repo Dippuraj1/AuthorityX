@@ -6,6 +6,7 @@ import {
   BarChart3, Settings, User, Menu, X, LogOut
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ interface DashboardLayoutProps {
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   const navItems = [
     { icon: LayoutDashboard, name: "Dashboard", path: "/dashboard" },
@@ -28,6 +30,10 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  // Get user name from context
+  const firstName = user?.user_metadata?.first_name || "Demo";
+  const lastName = user?.user_metadata?.last_name || "User";
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -61,10 +67,13 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 <User className="h-4 w-4 text-white" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium">John Doe</p>
-                <Link to="/sign-in" className="text-xs text-muted-foreground flex items-center">
+                <p className="text-sm font-medium">{firstName} {lastName}</p>
+                <button 
+                  onClick={signOut}
+                  className="text-xs text-muted-foreground flex items-center"
+                >
                   <LogOut className="h-3 w-3 mr-1" /> Logout
-                </Link>
+                </button>
               </div>
             </div>
           </div>

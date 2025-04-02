@@ -16,31 +16,16 @@ import Privacy from "@/pages/Privacy";
 import Security from "@/pages/Security";
 import Terms from "@/pages/Terms";
 import NotFound from "@/pages/NotFound";
-import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 // Dashboard feature pages
 import BrandAnalyzer from "@/pages/dashboard/BrandAnalyzer";
 
 const queryClient = new QueryClient();
 
-// Auth check - using Supabase auth context
+// Temporarily bypass authentication checks
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, loading } = useAuth();
-  
-  // Show loading state while checking authentication
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-purple"></div>
-      </div>
-    );
-  }
-  
-  // Redirect to sign-in if not authenticated
-  if (!user) {
-    return <Navigate to="/sign-in" replace />;
-  }
-  
+  // Always render children without checking auth
   return <>{children}</>;
 };
 
@@ -54,17 +39,17 @@ const App = () => (
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/sign-in" element={<Dashboard />} /> {/* Redirect to dashboard */}
+            <Route path="/sign-up" element={<Dashboard />} /> {/* Redirect to dashboard */}
             <Route path="/blog" element={<Blog />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/security" element={<Security />} />
             <Route path="/terms" element={<Terms />} />
             
-            {/* Protected routes */}
-            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path="/dashboard/optimize" element={<PrivateRoute><Optimize /></PrivateRoute>} />
-            <Route path="/dashboard/brand-analyzer" element={<PrivateRoute><BrandAnalyzer /></PrivateRoute>} />
+            {/* Protected routes - now directly accessible */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/optimize" element={<Optimize />} />
+            <Route path="/dashboard/brand-analyzer" element={<BrandAnalyzer />} />
             
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
