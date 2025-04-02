@@ -1,6 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { BarChart3, Calendar, PenTool, Share2, Zap, Award, TrendingUp, Shield } from "lucide-react";
+import { BarChart3, Calendar, PenTool, Share2, Zap, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -16,7 +16,7 @@ const featureData = [
     icon: <PenTool className="h-8 w-8 text-brand-purple" />,
     title: "Content Strategy",
     description: "Get a personalized 30-day content roadmap to maximize engagement.",
-    route: "/dashboard/content-strategy"
+    route: "/dashboard/strategy"
   },
   {
     icon: <Calendar className="h-8 w-8 text-brand-purple" />,
@@ -28,7 +28,7 @@ const featureData = [
     icon: <Share2 className="h-8 w-8 text-brand-purple" />,
     title: "Post & Share",
     description: "Publish your content directly to multiple social platforms.",
-    route: "/dashboard/publish"
+    route: "/dashboard/share"
   },
   {
     icon: <Zap className="h-8 w-8 text-brand-purple" />,
@@ -41,18 +41,6 @@ const featureData = [
     title: "Analytics",
     description: "Track performance metrics and optimize your content strategy.",
     route: "/dashboard/analytics"
-  },
-  {
-    icon: <Award className="h-8 w-8 text-brand-purple" />,
-    title: "Brand Authority",
-    description: "Build your online presence and reputation as a thought leader.",
-    route: "/dashboard/authority"
-  },
-  {
-    icon: <Shield className="h-8 w-8 text-brand-purple" />,
-    title: "Brand Protection",
-    description: "Tools to protect your brand identity and intellectual property.",
-    route: "/dashboard/protection"
   }
 ];
 
@@ -69,7 +57,7 @@ const FeaturesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featureData.map((feature, index) => (
             <FeatureCard 
               key={feature.title}
@@ -77,7 +65,7 @@ const FeaturesSection = () => {
               title={feature.title}
               description={feature.description}
               route={feature.route}
-              delay={100 * (index % 4)}
+              delay={100 * (index % 3)}
               isLoggedIn={!!user}
             />
           ))}
@@ -126,4 +114,3 @@ const FeatureCard = ({ icon, title, description, route, delay, isLoggedIn }: Fea
 };
 
 export default FeaturesSection;
-

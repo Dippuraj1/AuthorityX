@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -28,19 +27,19 @@ const TestimonialsSection = () => {
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 glassmorphism p-1">
               <TabsTrigger 
                 value="tab1" 
-                className="data-[state=active]:bg-brand-purple/20 data-[state=active]:text-white transition-all duration-300"
+                className="data-[state=active]:bg-[#1f1f1f] data-[state=active]:text-white transition-all duration-300"
               >
                 Entrepreneurs
               </TabsTrigger>
               <TabsTrigger 
                 value="tab2" 
-                className="data-[state=active]:bg-brand-purple/20 data-[state=active]:text-white transition-all duration-300"
+                className="data-[state=active]:bg-[#1f1f1f] data-[state=active]:text-white transition-all duration-300"
               >
                 Consultants
               </TabsTrigger>
               <TabsTrigger 
                 value="tab3" 
-                className="data-[state=active]:bg-brand-purple/20 data-[state=active]:text-white transition-all duration-300"
+                className="data-[state=active]:bg-[#1f1f1f] data-[state=active]:text-white transition-all duration-300"
               >
                 Creators
               </TabsTrigger>
@@ -153,7 +152,6 @@ const TestimonialsSection = () => {
   );
 };
 
-// Testimonial interfaces and components
 interface TestimonialProps {
   text: string;
   name: string;

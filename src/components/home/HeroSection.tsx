@@ -3,9 +3,11 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BookingModal from "./BookingModal";
+import VideoModal from "./VideoModal";
 
 const HeroSection = () => {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   return (
     <section className="relative mt-16 pt-16 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
@@ -45,7 +47,8 @@ const HeroSection = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white text-gray-800 hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm"
+              className="border-white text-white hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm"
+              onClick={() => setVideoModalOpen(true)}
             >
               Watch Demo
             </Button>
@@ -66,6 +69,14 @@ const HeroSection = () => {
 
       {/* Booking Modal */}
       <BookingModal open={bookingModalOpen} onOpenChange={setBookingModalOpen} />
+      
+      {/* Video Modal */}
+      <VideoModal 
+        open={videoModalOpen} 
+        onOpenChange={setVideoModalOpen} 
+        videoTitle="AuthorityX Demo"
+        videoDescription="See how AuthorityX transforms your personal brand with AI-powered tools."
+      />
     </section>
   );
 };

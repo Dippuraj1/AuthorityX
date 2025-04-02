@@ -42,7 +42,7 @@ const Newsletter = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="bg-muted/50 backdrop-blur-sm border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300"
+                  className="bg-muted/50 backdrop-blur-sm border border-solid border-[#999999] border-[1.5px] focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300"
                   aria-label="Email address"
                 />
                 <Button
