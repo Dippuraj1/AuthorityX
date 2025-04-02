@@ -5,7 +5,7 @@ import {
   Instagram, 
   Twitter, 
   Linkedin, 
-  TikTok, 
+  Music, // Replacing TikTok with Music icon
   Calendar, 
   BarChart2, 
   Edit3, 
@@ -46,7 +46,7 @@ const PostShare = () => {
     { platform: "instagram", icon: Instagram, color: "#E1306C", active: true, maxLength: 2200, hashtags: 30 },
     { platform: "twitter", icon: Twitter, color: "#1DA1F2", active: true, maxLength: 280, hashtags: 5 },
     { platform: "linkedin", icon: Linkedin, color: "#0077B5", active: true, maxLength: 3000, hashtags: 10 },
-    { platform: "tiktok", icon: TikTok, color: "#000000", active: false, maxLength: 150, hashtags: 20 },
+    { platform: "tiktok", icon: Music, color: "#000000", active: false, maxLength: 150, hashtags: 20 }, // Changed icon to Music
   ];
 
   const togglePlatform = (platform: string) => {
