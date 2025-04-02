@@ -20,6 +20,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 
 // Dashboard feature pages
 import BrandAnalyzer from "@/pages/dashboard/BrandAnalyzer";
+import BrandAnalyzerModule from "@/pages/modules/BrandAnalyzer";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,9 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/optimize" element={<Optimize />} />
             <Route path="/dashboard/brand-analyzer" element={<BrandAnalyzer />} />
+            
+            {/* Module pages */}
+            <Route path="/modules/brand-analyzer" element={<BrandAnalyzerModule />} />
             
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
