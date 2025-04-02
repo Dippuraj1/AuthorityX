@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User, Session } from "@supabase/supabase-js";
 import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 type AuthContextType = {
   user: User | null;
@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Set up auth state listener first
@@ -31,15 +32,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(session?.user ?? null);
         
         if (event === 'SIGNED_IN') {
+          // Redirect to dashboard on sign in
           toast({
             title: "Welcome back!",
             description: "You have successfully signed in.",
           });
+          
+          // Use setTimeout to avoid potential race conditions with state updates
+          setTimeout(() => {
+            if (
+              location.pathname === '/sign-in' || 
+              location.pathname === '/sign-up' || 
+              location.pathname === '/'
+            ) {
+              navigate('/dashboard');
+            }
+          }, 0);
         } else if (event === 'SIGNED_OUT') {
           toast({
             title: "Signed out",
             description: "You have been signed out.",
           });
+          navigate('/');
         }
       }
     );
@@ -49,17 +63,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+      
+      // If user is logged in and trying to access login/signup pages, redirect to dashboard
+      if (session && (location.pathname === '/sign-in' || location.pathname === '/sign-up')) {
+        navigate('/dashboard');
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, [toast]);
+  }, [toast, navigate, location.pathname]);
 
   const signIn = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+      
       if (error) throw error;
-      navigate("/dashboard");
+      
+      // We don't need to navigate here as the onAuthStateChange handler will do it
     } catch (error: any) {
       toast({
         title: "Error signing in",
@@ -74,7 +95,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUp = async (email: string, password: string, firstName?: string, lastName?: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signUp({
+      const { error, data } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -84,13 +105,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           },
         },
       });
+      
       if (error) throw error;
+      
+      // Update user profile in the profiles table
+      if (data.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .upsert({
+            id: data.user.id,
+            email,
+            first_name: firstName,
+            last_name: lastName,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+          
+        if (profileError) {
+          console.error("Error updating profile:", profileError);
+        }
+      }
       
       toast({
         title: "Account created!",
         description: "Your account has been created successfully.",
       });
-      navigate("/dashboard");
+      
+      // We don't need to navigate here as the onAuthStateChange handler will do it
     } catch (error: any) {
       toast({
         title: "Error signing up",
@@ -107,7 +148,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true);
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      navigate("/");
+      // We don't need to navigate here as the onAuthStateChange handler will do it
     } catch (error: any) {
       toast({
         title: "Error signing out",

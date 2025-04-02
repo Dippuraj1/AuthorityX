@@ -7,14 +7,14 @@
 
 @layer base {
   :root {
-    --background: 260 10% 8%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 98%;
+    --foreground: 260 10% 8%;
 
-    --card: 260 10% 10%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 260 10% 8%;
 
-    --popover: 260 10% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 260 10% 8%;
 
     --primary: 252 82% 74%;
     --primary-foreground: 0 0% 100%;
@@ -22,8 +22,8 @@
     --secondary: 215 20% 65%;
     --secondary-foreground: 260 10% 8%;
 
-    --muted: 260 10% 15%;
-    --muted-foreground: 0 0% 70%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 240 3.8% 46.1%;
 
     --accent: 252 82% 74%;
     --accent-foreground: 0 0% 98%;
@@ -31,8 +31,8 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 260 10% 15%;
-    --input: 260 10% 15%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 252 82% 74%;
 
     --radius: 0.5rem;
@@ -83,11 +83,11 @@
   }
 
   .card {
-    @apply rounded-lg shadow-lg backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300;
+    @apply rounded-lg shadow-md border border-border hover:border-brand-purple/20 transition-all duration-300;
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300;
+    @apply bg-white/95 backdrop-blur-md border border-white/30 hover:border-brand-purple/20 transition-all duration-300 shadow-sm;
   }
 
   .section-title {
@@ -161,9 +161,45 @@
 }
 
 .glassmorphism {
-  @apply bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-xl shadow-lg;
+  @apply bg-white/95 backdrop-blur-md border border-white/30 hover:border-brand-purple/20 rounded-xl shadow-sm;
 }
 
 .button-glow:hover {
   box-shadow: 0 0 15px rgba(155, 135, 245, 0.7);
 }
+
+/* Neon glow effect for feature cards */
+@keyframes neonPulse {
+  0% {
+    box-shadow: 0 0 5px rgba(155, 135, 245, 0.5);
+    border-color: rgba(155, 135, 245, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(155, 135, 245, 0.8), 0 0 30px rgba(155, 135, 245, 0.4);
+    border-color: rgba(155, 135, 245, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(155, 135, 245, 0.5);
+    border-color: rgba(155, 135, 245, 0.3);
+  }
+}
+
+.neon-glow-hover {
+  transition: all 0.3s ease-in-out;
+}
+
+.neon-glow-hover:hover {
+  transform: translateY(-5px) scale(1.03);
+  animation: neonPulse 2s infinite;
+}
+
+/* Interactive dashboard card styles */
+.dashboard-card {
+  @apply rounded-xl shadow-md border border-white/50 bg-white transition-all duration-300;
+}
+
+.dashboard-card:hover {
+  @apply shadow-lg border-brand-purple/30;
+  transform: translateY(-5px);
+}
+

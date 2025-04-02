@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Pages
 import Home from "@/pages/Home";
@@ -16,18 +16,29 @@ import Privacy from "@/pages/Privacy";
 import Security from "@/pages/Security";
 import Terms from "@/pages/Terms";
 import NotFound from "@/pages/NotFound";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+
+// Dashboard feature pages
+import BrandAnalyzer from "@/pages/dashboard/BrandAnalyzer";
 
 const queryClient = new QueryClient();
 
-// Auth check - using our auth context
+// Auth check - using Supabase auth context
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = localStorage.getItem("authorityx-authenticated") === "true";
+  const { user, loading } = useAuth();
   
-  // Using existing simple auth check for now, will update with Supabase auth later
-  if (!isAuthenticated) {
-    window.location.href = "/sign-in";
-    return null;
+  // Show loading state while checking authentication
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-purple"></div>
+      </div>
+    );
+  }
+  
+  // Redirect to sign-in if not authenticated
+  if (!user) {
+    return <Navigate to="/sign-in" replace />;
   }
   
   return <>{children}</>;
@@ -53,6 +64,7 @@ const App = () => (
             {/* Protected routes */}
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/dashboard/optimize" element={<PrivateRoute><Optimize /></PrivateRoute>} />
+            <Route path="/dashboard/brand-analyzer" element={<PrivateRoute><BrandAnalyzer /></PrivateRoute>} />
             
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
