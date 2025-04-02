@@ -1,63 +1,44 @@
 
 import { useState, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/components/ui/use-toast";
 import { Linkedin } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { useAuth } from "@/contexts/AuthContext";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-  const navigate = useNavigate();
+  const { signIn, loading } = useAuth();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    // Simulate authentication
-    setTimeout(() => {
-      if (email && password) {
-        // This is just a demo - in a real app we would validate credentials properly
-        localStorage.setItem("authorityx-authenticated", "true");
-        navigate("/dashboard");
-      } else {
-        toast({
-          title: "Login Failed",
-          description: "Please enter valid credentials.",
-          variant: "destructive",
-        });
+    if (email && password) {
+      await signIn(email, password);
+      if (rememberMe) {
+        localStorage.setItem("authorityx-email", email);
       }
-      setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleSocialLogin = () => {
-    setIsLoading(true);
-    
-    // Simulate LinkedIn authentication
-    setTimeout(() => {
-      localStorage.setItem("authorityx-authenticated", "true");
-      navigate("/dashboard");
-      setIsLoading(false);
-    }, 1000);
+    // This would be implemented with Supabase's social login
+    console.log("LinkedIn login not implemented yet");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brand-deeper-purple px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-brand-deeper-purple px-4 py-12 backdrop-blur-md">
       <div className="max-w-md w-full space-y-6">
         <div className="text-center">
           <h2 className="text-4xl font-bold text-white mb-2">Welcome back</h2>
           <p className="text-muted-foreground">Sign in to your AuthorityX account</p>
         </div>
 
-        <Card className="bg-card shadow-xl">
+        <Card className="bg-card/80 backdrop-blur-md shadow-xl border border-white/10">
           <CardHeader>
             <CardTitle className="text-center">Sign In</CardTitle>
             <CardDescription className="text-center">
@@ -75,7 +56,7 @@ const SignIn = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-muted border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple"
+                  className="bg-muted/50 backdrop-blur-sm border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300"
                 />
               </div>
               <div className="space-y-2">
@@ -92,7 +73,7 @@ const SignIn = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="bg-muted border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple"
+                  className="bg-muted/50 backdrop-blur-sm border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300"
                 />
               </div>
               <div className="flex items-center space-x-2">
@@ -105,10 +86,10 @@ const SignIn = () => {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-brand-purple hover:bg-brand-dark-purple"
-                disabled={isLoading}
+                className="w-full bg-brand-purple hover:bg-brand-dark-purple transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                disabled={loading}
               >
-                {isLoading ? "Signing in..." : "Sign In"}
+                {loading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
 
@@ -126,9 +107,9 @@ const SignIn = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full border-border text-foreground hover:bg-muted"
+                  className="w-full border-border text-foreground hover:bg-muted transition-all duration-300"
                   onClick={handleSocialLogin}
-                  disabled={isLoading}
+                  disabled={loading}
                 >
                   <Linkedin className="mr-2 h-5 w-5 text-[#0A66C2]" />
                   Sign in with LinkedIn

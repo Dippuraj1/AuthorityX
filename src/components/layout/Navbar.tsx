@@ -1,12 +1,34 @@
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const { user, signOut } = useAuth();
+
+  // Handle scroll for navbar background effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -20,8 +42,26 @@ const Navbar = () => {
     }
   };
 
+  // Get user initials for avatar fallback
+  const getUserInitials = () => {
+    if (!user) return "U";
+    const email = user.email || "";
+    return email.charAt(0).toUpperCase();
+  };
+
+  // Smooth scroll to section
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
-    <nav className="bg-background/90 backdrop-blur-md fixed w-full z-50">
+    <nav className={`fixed w-full z-50 transition-all duration-300 py-[10px] ${
+      isScrolled ? "bg-background/90 backdrop-blur-md shadow-md" : "bg-transparent"
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -30,78 +70,118 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <div className="relative" onMouseLeave={() => setDropdownOpen(null)}>
-              <button
-                onMouseEnter={() => toggleDropdown('features')}
-                className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium flex items-center"
-              >
-                Features <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
-              {dropdownOpen === 'features' && (
-                <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-card ring-1 ring-black ring-opacity-5 overflow-hidden">
-                  <div className="py-1">
-                    <Link
-                      to="/features/optimize"
-                      className="block px-4 py-2 text-sm text-foreground hover:bg-muted"
-                    >
-                      Brand Analyzer
-                    </Link>
-                    <Link
-                      to="/features/strategy"
-                      className="block px-4 py-2 text-sm text-foreground hover:bg-muted"
-                    >
-                      Content Strategy
-                    </Link>
-                    <Link
-                      to="/features/calendar"
-                      className="block px-4 py-2 text-sm text-foreground hover:bg-muted"
-                    >
-                      Content Calendar
-                    </Link>
-                    <Link
-                      to="/features/writer"
-                      className="block px-4 py-2 text-sm text-foreground hover:bg-muted"
-                    >
-                      Content Writer
-                    </Link>
-                    <Link
-                      to="/features/share"
-                      className="block px-4 py-2 text-sm text-foreground hover:bg-muted"
-                    >
-                      Post & Share
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-            <Link
-              to="/pricing"
-              className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium"
-            >
-              Pricing
-            </Link>
+            {location.pathname === "/" && (
+              <>
+                <button
+                  onClick={() => scrollToSection("features")}
+                  className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium transition-all duration-300"
+                >
+                  Features
+                </button>
+                <button
+                  onClick={() => scrollToSection("testimonials")}
+                  className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium transition-all duration-300"
+                >
+                  Testimonials
+                </button>
+                <button
+                  onClick={() => scrollToSection("pricing")}
+                  className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium transition-all duration-300"
+                >
+                  Pricing
+                </button>
+              </>
+            )}
             <Link
               to="/blog"
-              className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium"
+              className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium transition-all duration-300"
             >
               Blog
             </Link>
-            <Link
-              to="/sign-in"
-              className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium"
-            >
-              Sign In
-            </Link>
-            <Link to="/sign-up" className="">
-              <Button className="bg-brand-purple hover:bg-brand-dark-purple text-white">
-                Get Started Free
-              </Button>
-            </Link>
+            
+            {user ? (
+              <div className="flex items-center gap-4">
+                <Link to="/dashboard">
+                  <Button 
+                    variant="outline" 
+                    className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white transition-all duration-300"
+                  >
+                    Dashboard
+                  </Button>
+                </Link>
+                <Dialog>
+                  <DialogTrigger>
+                    <Avatar className="cursor-pointer border-2 border-transparent hover:border-brand-purple transition-all duration-300">
+                      <AvatarImage src={user.user_metadata?.avatar_url} />
+                      <AvatarFallback className="bg-brand-purple text-white">
+                        {getUserInitials()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px] bg-card/80 backdrop-blur-md border border-white/10">
+                    <DialogHeader>
+                      <DialogTitle>Profile</DialogTitle>
+                      <DialogDescription>
+                        Manage your account settings
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col gap-4 py-4">
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-16 w-16">
+                          <AvatarImage src={user.user_metadata?.avatar_url} />
+                          <AvatarFallback className="bg-brand-purple text-white text-xl">
+                            {getUserInitials()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="text-lg font-medium">
+                            {user.user_metadata?.first_name || ""} {user.user_metadata?.last_name || ""}
+                          </p>
+                          <p className="text-sm text-muted-foreground">{user.email}</p>
+                        </div>
+                      </div>
+                      <Button 
+                        variant="outline" 
+                        className="mt-2"
+                        onClick={() => signOut()}
+                      >
+                        Sign Out
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            ) : (
+              <>
+                <Link
+                  to="/sign-in"
+                  className="text-foreground hover:text-brand-purple px-3 py-2 text-sm font-medium transition-all duration-300"
+                >
+                  Sign In
+                </Link>
+                <Link to="/sign-up">
+                  <Button className="bg-brand-purple hover:bg-brand-dark-purple text-white transition-all duration-300 transform hover:scale-105 active:scale-95">
+                    Get Started Free
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
           <div className="flex md:hidden items-center">
+            {user && (
+              <Link to="/dashboard" className="mr-4">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white"
+                >
+                  Dashboard
+                </Button>
+              </Link>
+            )}
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-brand-purple focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-brand-purple focus:outline-none transition-colors"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -117,72 +197,77 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-card animate-scale-in">
+        <div className="md:hidden bg-card/90 backdrop-blur-md animate-scale-in">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <button
-              onClick={() => toggleDropdown('features-mobile')}
-              className="w-full text-left text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Features <ChevronDown className="inline ml-1 h-4 w-4" />
-            </button>
-            {dropdownOpen === 'features-mobile' && (
-              <div className="pl-4 space-y-1">
-                <Link
-                  to="/features/optimize"
-                  className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-sm"
+            {location.pathname === "/" ? (
+              <>
+                <button
+                  onClick={() => scrollToSection("features")}
+                  className="w-full text-left text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
                 >
-                  Brand Analyzer
-                </Link>
-                <Link
-                  to="/features/strategy"
-                  className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-sm"
+                  Features
+                </button>
+                <button
+                  onClick={() => scrollToSection("testimonials")}
+                  className="w-full text-left text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
                 >
-                  Content Strategy
-                </Link>
-                <Link
-                  to="/features/calendar"
-                  className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-sm"
+                  Testimonials
+                </button>
+                <button
+                  onClick={() => scrollToSection("pricing")}
+                  className="w-full text-left text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
                 >
-                  Content Calendar
-                </Link>
-                <Link
-                  to="/features/writer"
-                  className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-sm"
-                >
-                  Content Writer
-                </Link>
-                <Link
-                  to="/features/share"
-                  className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-sm"
-                >
-                  Post & Share
-                </Link>
-              </div>
-            )}
-            <Link
-              to="/pricing"
-              className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Pricing
-            </Link>
+                  Pricing
+                </button>
+              </>
+            ) : null}
             <Link
               to="/blog"
-              className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium"
+              className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
             >
               Blog
             </Link>
-            <Link
-              to="/sign-in"
-              className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/sign-up"
-              className="bg-brand-purple hover:bg-brand-dark-purple text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Get Started Free
-            </Link>
+            {user ? (
+              <div className="px-3 py-2">
+                <div className="flex items-center gap-3 mb-3">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage src={user.user_metadata?.avatar_url} />
+                    <AvatarFallback className="bg-brand-purple text-white">
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">
+                      {user.user_metadata?.first_name || ""} {user.user_metadata?.last_name || ""}
+                    </p>
+                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                  </div>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="w-full"
+                  onClick={() => signOut()}
+                >
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link
+                  to="/sign-in"
+                  className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/sign-up"
+                  className="bg-brand-purple hover:bg-brand-dark-purple text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
+                >
+                  Get Started Free
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

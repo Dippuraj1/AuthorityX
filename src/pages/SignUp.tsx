@@ -1,81 +1,52 @@
 
 import { useState, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/components/ui/use-toast";
 import { Linkedin } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { useAuth } from "@/contexts/AuthContext";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-  const navigate = useNavigate();
+  const { signUp, loading } = useAuth();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
     if (!agreeTerms) {
-      toast({
-        title: "Terms Required",
-        description: "You must agree to the terms and conditions to create an account.",
-        variant: "destructive",
-      });
       return;
     }
     
-    setIsLoading(true);
-
-    // Simulate registration
-    setTimeout(() => {
-      if (name && email && password) {
-        localStorage.setItem("authorityx-authenticated", "true");
-        toast({
-          title: "Account created!",
-          description: "Welcome to AuthorityX. Your account has been created successfully.",
-        });
-        navigate("/dashboard");
-      } else {
-        toast({
-          title: "Registration Failed",
-          description: "Please fill in all required fields.",
-          variant: "destructive",
-        });
-      }
-      setIsLoading(false);
-    }, 1000);
+    if (name && email && password) {
+      // Split name into first and last name
+      const nameParts = name.trim().split(' ');
+      const firstName = nameParts[0];
+      const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
+      
+      await signUp(email, password, firstName, lastName);
+    }
   };
 
   const handleSocialSignUp = () => {
-    setIsLoading(true);
-    
-    // Simulate LinkedIn authentication
-    setTimeout(() => {
-      localStorage.setItem("authorityx-authenticated", "true");
-      toast({
-        title: "Account created!",
-        description: "Your account has been created with LinkedIn.",
-      });
-      navigate("/dashboard");
-      setIsLoading(false);
-    }, 1000);
+    // This would be implemented with Supabase's social login
+    console.log("LinkedIn signup not implemented yet");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brand-deeper-purple px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-brand-deeper-purple px-4 py-12 backdrop-blur-md">
       <div className="max-w-md w-full space-y-6">
         <div className="text-center">
           <h2 className="text-4xl font-bold text-white mb-2">Create an account</h2>
           <p className="text-muted-foreground">Start your personal branding journey with AuthorityX</p>
         </div>
 
-        <Card className="bg-card shadow-xl">
+        <Card className="bg-card/80 backdrop-blur-md shadow-xl border border-white/10">
           <CardHeader>
             <CardTitle className="text-center">Sign Up</CardTitle>
             <CardDescription className="text-center">
@@ -93,7 +64,7 @@ const SignUp = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="bg-muted border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple"
+                  className="bg-muted/50 backdrop-blur-sm border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300"
                 />
               </div>
               <div className="space-y-2">
@@ -105,7 +76,7 @@ const SignUp = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-muted border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple"
+                  className="bg-muted/50 backdrop-blur-sm border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300"
                 />
               </div>
               <div className="space-y-2">
@@ -117,7 +88,7 @@ const SignUp = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="bg-muted border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple"
+                  className="bg-muted/50 backdrop-blur-sm border-border focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300"
                 />
                 <p className="text-xs text-muted-foreground">
                   Password must be at least 8 characters long with a mix of letters, numbers, and symbols.
@@ -142,10 +113,10 @@ const SignUp = () => {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-brand-purple hover:bg-brand-dark-purple"
-                disabled={isLoading}
+                className="w-full bg-brand-purple hover:bg-brand-dark-purple transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                disabled={loading || !agreeTerms}
               >
-                {isLoading ? "Creating account..." : "Create Account"}
+                {loading ? "Creating account..." : "Create Account"}
               </Button>
             </form>
 
@@ -163,9 +134,9 @@ const SignUp = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full border-border text-foreground hover:bg-muted"
+                  className="w-full border-border text-foreground hover:bg-muted transition-all duration-300"
                   onClick={handleSocialSignUp}
-                  disabled={isLoading}
+                  disabled={loading}
                 >
                   <Linkedin className="mr-2 h-5 w-5 text-[#0A66C2]" />
                   Sign up with LinkedIn
