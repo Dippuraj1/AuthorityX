@@ -59,27 +59,27 @@ body {
 }
 
 h1 {
-  @apply scroll-m-20 text-[38px] font-extrabold tracking-tight lg:text-[41px] font-heading;
+  @apply scroll-m-20 text-[40px] font-extrabold tracking-tight lg:text-[43px] font-heading;
 }
 
 h2 {
-  @apply scroll-m-20 text-[32px] font-semibold tracking-tight first:mt-0 font-heading;
+  @apply scroll-m-20 text-[34px] font-semibold tracking-tight first:mt-0 font-heading;
 }
 
 h3 {
-  @apply scroll-m-20 text-[24px] font-semibold tracking-tight font-heading;
+  @apply scroll-m-20 text-[26px] font-semibold tracking-tight font-heading;
 }
 
 h4 {
-  @apply scroll-m-20 text-[15px] font-semibold tracking-tight font-body;
-}
-
-h5 {
   @apply scroll-m-20 text-[13px] font-semibold tracking-tight font-body;
 }
 
-h6 {
+h5 {
   @apply scroll-m-20 text-[11px] font-semibold tracking-tight font-body;
+}
+
+h6 {
+  @apply scroll-m-20 text-[9px] font-semibold tracking-tight font-body;
 }
 
 /* Mobile responsive font sizes */
