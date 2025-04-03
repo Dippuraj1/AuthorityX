@@ -12,7 +12,7 @@ const PricingSection = () => {
       
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl font-bold mb-6 section-title inline-block pb-4 text-purple-800">
+          <h2 className="font-bold mb-6 section-title inline-block pb-4 text-purple-800 text-5xl">
             Simple, Transparent Pricing
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
