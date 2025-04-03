@@ -68,7 +68,7 @@ const HeroSection = () => {
               Book Appointment
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg" onClick={() => setVideoModalOpen(true)} className="border-white text-gray-800 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 bg-purple-800 hover:bg-purple-700 rounded-lg">
+            <Button variant="outline" size="lg" onClick={() => setVideoModalOpen(true)} className="border-white text-gray-800 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 bg-purple-800 hover:bg-purple-700 rounded-lg rounded-xl">
               <span className="text-slate-50">Watch Demo</span>
             </Button>
           </div>
