@@ -55,31 +55,31 @@
 }
 
 body {
-  @apply bg-background text-foreground;
+  @apply bg-background text-foreground font-body;
 }
 
 h1 {
-  @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+  @apply scroll-m-20 text-[38px] font-extrabold tracking-tight lg:text-[41px] font-heading;
 }
 
 h2 {
-  @apply scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0;
+  @apply scroll-m-20 text-[32px] font-semibold tracking-tight first:mt-0 font-heading;
 }
 
 h3 {
-  @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  @apply scroll-m-20 text-[24px] font-semibold tracking-tight font-heading;
 }
 
 h4 {
-  @apply scroll-m-20 text-lg font-semibold tracking-tight;
+  @apply scroll-m-20 text-[15px] font-semibold tracking-tight font-body;
 }
 
 h5 {
-  @apply scroll-m-20 text-base font-semibold tracking-tight;
+  @apply scroll-m-20 text-[13px] font-semibold tracking-tight font-body;
 }
 
 h6 {
-  @apply scroll-m-20 text-sm font-semibold tracking-tight;
+  @apply scroll-m-20 text-[11px] font-semibold tracking-tight font-body;
 }
 
 /* Mobile responsive font sizes */
