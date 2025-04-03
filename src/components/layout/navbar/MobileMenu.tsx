@@ -31,10 +31,8 @@ const MobileMenu = ({ isOpen, onClose, user, signOut, location }: MobileMenuProp
   };
 
   return (
-    <div className={`md:hidden bg-card/90 backdrop-blur-md animate-scale-in ${
-      isOpen ? "" : "hidden"
-    }`}>
-      <div className="px-2 pt-2 pb-3 space-y-1">
+    <div className="bg-background/95 backdrop-blur-md shadow-lg border-t border-gray-200 animate-fade-in-up">
+      <div className="px-2 pt-2 pb-3 space-y-1 max-h-[80vh] overflow-y-auto">
         {location.pathname === "/" ? (
           <>
             <button
@@ -60,8 +58,16 @@ const MobileMenu = ({ isOpen, onClose, user, signOut, location }: MobileMenuProp
         <Link
           to="/blog"
           className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
+          onClick={onClose}
         >
           Blog
+        </Link>
+        <Link
+          to="/dashboard"
+          className="text-foreground hover:text-brand-purple block px-3 py-2 rounded-md text-base font-medium transition-all duration-300"
+          onClick={onClose}
+        >
+          Dashboard
         </Link>
         <div className="px-3 py-2">
           <div className="flex items-center gap-3 mb-3">
@@ -79,8 +85,11 @@ const MobileMenu = ({ isOpen, onClose, user, signOut, location }: MobileMenuProp
             </div>
           </div>
           <button
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium border rounded-md border-input bg-background hover:bg-accent hover:text-accent-foreground"
-            onClick={() => signOut()}
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium border rounded-md border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-md hover:shadow-lg transition-all"
+            onClick={() => {
+              signOut();
+              onClose();
+            }}
           >
             <LogOut className="h-4 w-4" />
             Sign Out

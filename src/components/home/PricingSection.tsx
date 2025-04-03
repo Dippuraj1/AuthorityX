@@ -9,14 +9,14 @@ const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(true);
   
   return (
-    <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 relative">
+    <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-gray-50 dark:bg-gray-900">
       {/* Background decorative elements */}
       <div className="absolute top-0 right-1/4 w-80 h-80 bg-brand-purple/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl"></div>
       
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl font-bold mb-6 section-title inline-block pb-4">
+          <h2 className="text-4xl font-bold mb-6 section-title inline-block pb-4 text-gray-800 dark:text-white">
             Simple, Transparent Pricing
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -24,11 +24,11 @@ const PricingSection = () => {
           </p>
           
           <div className="flex items-center justify-center mt-8">
-            <div className="bg-card/30 p-1 rounded-full glassmorphism inline-flex">
+            <div className="bg-card/30 p-1 rounded-full glassmorphism inline-flex shadow-lg">
               <button
                 onClick={() => setIsAnnual(false)}
                 className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                  !isAnnual ? "bg-brand-purple text-white shadow-glow" : "text-gray-400"
+                  !isAnnual ? "bg-brand-purple text-white shadow-glow" : "text-gray-500"
                 }`}
               >
                 Monthly
@@ -36,7 +36,7 @@ const PricingSection = () => {
               <button
                 onClick={() => setIsAnnual(true)}
                 className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                  isAnnual ? "bg-brand-purple text-white shadow-glow" : "text-gray-400"
+                  isAnnual ? "bg-brand-purple text-white shadow-glow" : "text-gray-500"
                 }`}
               >
                 Annual <span className="text-xs font-normal ml-1">Save 20%</span>
@@ -60,6 +60,7 @@ const PricingSection = () => {
             ]}
             isPopular={false}
             delay={100}
+            textColor="text-gray-700"
           />
 
           {/* Creator Plan */}
@@ -78,6 +79,7 @@ const PricingSection = () => {
             ]}
             isPopular={true}
             delay={200}
+            textColor="text-white"
           />
 
           {/* Pro Plan */}
@@ -97,6 +99,7 @@ const PricingSection = () => {
             ]}
             isPopular={false}
             delay={300}
+            textColor="text-gray-700"
           />
         </div>
       </div>
@@ -113,9 +116,10 @@ interface PricingCardProps {
   features: string[];
   isPopular: boolean;
   delay: number;
+  textColor: string;
 }
 
-const PricingCard = ({ tier, price, period, description, features, isPopular, delay }: PricingCardProps) => (
+const PricingCard = ({ tier, price, period, description, features, isPopular, delay, textColor }: PricingCardProps) => (
   <Card 
     className={`glassmorphism animate-fade-in-up ${
       isPopular 
@@ -153,8 +157,8 @@ const PricingCard = ({ tier, price, period, description, features, isPopular, de
           variant={isPopular ? "default" : "outline"} 
           className={`w-full group ${
             isPopular 
-              ? "bg-brand-purple hover:bg-brand-dark-purple button-glow py-6" 
-              : "border-brand-purple/50 text-white hover:bg-brand-purple/20 py-6"
+              ? "bg-brand-purple hover:bg-brand-dark-purple button-glow py-6 shadow-lg hover:shadow-xl" 
+              : `border-brand-purple/50 hover:bg-brand-purple/20 py-6 shadow-lg hover:shadow-xl ${textColor}`
           }`}
         >
           Get Started

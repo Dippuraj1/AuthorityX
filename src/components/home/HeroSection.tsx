@@ -10,7 +10,7 @@ const HeroSection = () => {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   return (
-    <section className="relative mt-16 pt-16 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
+    <section className="relative mt-0 pt-16 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700"></div>
@@ -39,7 +39,7 @@ const HeroSection = () => {
             <Button 
               onClick={() => setBookingModalOpen(true)}
               size="lg" 
-              className="text-blue-600 bg-white hover:bg-blue-50 px-8 py-6 text-lg font-semibold"
+              className="text-blue-600 bg-white hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Book Appointment
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -47,10 +47,10 @@ const HeroSection = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white text-gray-800 hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm"
+              className="border-white text-gray-800 hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
               onClick={() => setVideoModalOpen(true)}
             >
-              Watch Demo
+              <span className="text-gray-800">Watch Demo</span>
             </Button>
           </div>
 

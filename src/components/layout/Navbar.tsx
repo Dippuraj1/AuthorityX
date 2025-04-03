@@ -48,7 +48,7 @@ const Navbar = () => {
               <Button 
                 variant="outline" 
                 size="sm"
-                className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white"
+                className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white shadow-md hover:shadow-lg"
               >
                 Dashboard
               </Button>
@@ -69,14 +69,16 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <MobileMenu 
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        user={user}
-        signOut={signOut}
-        location={location}
-      />
+      {/* Mobile menu - positioned fixed for better mobile experience */}
+      <div className={`md:hidden fixed inset-x-0 top-16 z-50 transform ${isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"} transition-all duration-300 ease-in-out`}>
+        <MobileMenu 
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          user={user}
+          signOut={signOut}
+          location={location}
+        />
+      </div>
     </nav>
   );
 };

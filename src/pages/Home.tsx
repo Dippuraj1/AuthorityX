@@ -37,7 +37,7 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <div className="flex-grow pt-8">
+      <div className="flex-grow">
         {/* Sectioned Components */}
         <HeroSection />
         <FeaturesSection />

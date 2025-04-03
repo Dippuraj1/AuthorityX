@@ -35,27 +35,27 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Product</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/features/optimize" className="text-gray-300 hover:text-brand-purple">
+                <Link to="/dashboard/brand-analyzer" className="text-gray-300 hover:text-brand-purple">
                   Brand Analyzer
                 </Link>
               </li>
               <li>
-                <Link to="/features/strategy" className="text-gray-300 hover:text-brand-purple">
+                <Link to="/dashboard/strategy" className="text-gray-300 hover:text-brand-purple">
                   Content Strategy
                 </Link>
               </li>
               <li>
-                <Link to="/features/calendar" className="text-gray-300 hover:text-brand-purple">
+                <Link to="/dashboard/calendar" className="text-gray-300 hover:text-brand-purple">
                   Content Calendar
                 </Link>
               </li>
               <li>
-                <Link to="/features/writer" className="text-gray-300 hover:text-brand-purple">
+                <Link to="/dashboard/writer" className="text-gray-300 hover:text-brand-purple">
                   Content Writer
                 </Link>
               </li>
               <li>
-                <Link to="/features/share" className="text-gray-300 hover:text-brand-purple">
+                <Link to="/dashboard/share" className="text-gray-300 hover:text-brand-purple">
                   Post & Share
                 </Link>
               </li>
