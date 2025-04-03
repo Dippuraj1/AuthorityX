@@ -1,16 +1,12 @@
-
 import { useState } from "react";
 import { ArrowRight, Circle, Square, Triangle, Hexagon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BookingModal from "./BookingModal";
 import VideoModal from "./VideoModal";
-
 const HeroSection = () => {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
-  
-  return (
-    <section className="relative mt-0 pt-16 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
+  return <section className="relative mt-0 pt-16 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700"></div>
@@ -68,7 +64,7 @@ const HeroSection = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={() => setBookingModalOpen(true)} size="lg" className="text-blue-600 bg-white hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] transition-all duration-300 rounded-lg">
+            <Button onClick={() => setBookingModalOpen(true)} size="lg" className="text-blue-600 bg-white hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] transition-all duration-300 rounded-lg rounded-xl">
               Book Appointment
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -84,8 +80,6 @@ const HeroSection = () => {
       
       {/* Video Modal */}
       <VideoModal open={videoModalOpen} onOpenChange={setVideoModalOpen} videoTitle="AuthorityX Demo" videoDescription="See how AuthorityX transforms your personal brand with AI-powered tools." />
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
