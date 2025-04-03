@@ -22,13 +22,13 @@ const TestimonialsSection = () => {
         <Tabs defaultValue="tab1" className="w-full" value={activeTab} onValueChange={setActiveTab}>
           <div className="flex items-center justify-between mb-8">
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 glassmorphism p-1">
-              <TabsTrigger value="tab1" className="data-[state=active]:text-white transition-all duration-300 bg-purple-800 hover:bg-purple-700">
+              <TabsTrigger value="tab1" className="data-[state=active]:text-white transition-all duration-300 bg-purple-900 hover:bg-purple-800">
                 Entrepreneurs
               </TabsTrigger>
-              <TabsTrigger value="tab2" className="data-[state=active]:bg-[#1f1f1f] data-[state=active]:text-white transition-all duration-300">
+              <TabsTrigger value="tab2" className="data-[state=active]:text-white transition-all duration-300 bg-purple-800 hover:bg-purple-700">
                 Consultants
               </TabsTrigger>
-              <TabsTrigger value="tab3" className="data-[state=active]:bg-[#1f1f1f] data-[state=active]:text-white transition-all duration-300">
+              <TabsTrigger value="tab3" className="data-[state=active]:text-white transition-all duration-300 bg-purple-600 hover:bg-purple-500">
                 Creators
               </TabsTrigger>
             </TabsList>
