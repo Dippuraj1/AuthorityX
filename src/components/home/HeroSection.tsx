@@ -101,17 +101,6 @@ const HeroSection = () => {
               <span className="text-gray-800">Watch Demo</span>
             </Button>
           </div>
-
-          <div className="pt-10">
-            <p className="text-blue-100 mb-4">Trusted by professionals from</p>
-            <div className="flex flex-wrap justify-center gap-x-12 gap-y-6">
-              {["Google", "Microsoft", "Adobe", "LinkedIn", "Twitter"].map((company) => (
-                <div key={company} className="text-blue-100/80 text-xl font-semibold">
-                  {company}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 
