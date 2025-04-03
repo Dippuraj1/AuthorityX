@@ -65,7 +65,7 @@ const CTASection = () => {
           <span>Join thousands of satisfied professionals</span>
         </div>
         
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-purple-800">Ready to Grow Your Personal Brand?</h2>
+        <h2 className="text-4xl font-bold mb-6 text-purple-800 md:text-5xl">Ready to Grow Your Personal Brand?</h2>
         <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto">
           Join thousands of professionals using AuthorityX to build their personal brand and grow their online presence.
         </p>
