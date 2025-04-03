@@ -1,0 +1,42 @@
+
+@import './keyframes.css';
+@import './transitions.css';
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+.neon-glow-hover {
+  transition: all 0.3s ease-in-out;
+}
+
+.neon-glow-hover:hover {
+  transform: translateY(-5px) scale(1.03);
+  animation: neonPulse 2s infinite;
+}
+
+.shape-3d {
+  filter: drop-shadow(5px 5px 10px rgba(155, 135, 245, 0.4));
+  animation: float3d 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
