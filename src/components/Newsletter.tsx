@@ -23,7 +23,7 @@ const Newsletter = () => {
       setIsSubmitting(false);
     }, 1000);
   };
-  return <section id="newsletter" className="py-16 bg-gradient-to-b from-background to-muted">
+  return <section id="newsletter" className="py-16 bg-gradient-to-b from-background bg-purple-50 to-purple-800">
       <div className="container max-w-6xl mx-auto px-4">
         <div className="bg-card/40 backdrop-blur-md shadow-lg rounded-2xl p-8 md:p-12 border border-white/10">
           <div className="max-w-3xl mx-auto text-center">
