@@ -34,7 +34,7 @@ const Newsletter = () => {
             <form onSubmit={handleSubmit} className="max-w-md mx-auto">
               <div className="flex flex-col sm:flex-row gap-3">
                 <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter your email" required className="bg-muted/50 backdrop-blur-sm border border-solid border-[#999999] border-[1.5px] focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all duration-300" aria-label="Email address" />
-                <Button type="submit" disabled={isSubmitting} className="hover:bg-brand-dark-purple text-white transition-all duration-300 transform hover:translate-x-1 bg-purple-800 hover:bg-purple-700">
+                <Button type="submit" disabled={isSubmitting} className="hover:bg-brand-dark-purple text-white transition-all duration-300 transform hover:translate-x-1 bg-purple-800 hover:bg-purple-700 rounded-xl">
                   Subscribe
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
