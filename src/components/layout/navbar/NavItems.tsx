@@ -31,7 +31,7 @@ const NavItems = ({
       
       <div className="flex items-center gap-4">
         <Link to="/dashboard">
-          <Button variant="outline" className="border-brand-purple transition-all duration-300 text-purple-50 bg-purple-800 hover:bg-purple-700">
+          <Button variant="outline" className="border-brand-purple transition-all duration-300 text-purple-50 bg-purple-800 hover:bg-purple-700 rounded-xl">
             Dashboard
           </Button>
         </Link>
