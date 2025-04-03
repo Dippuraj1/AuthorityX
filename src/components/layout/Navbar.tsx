@@ -36,7 +36,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-purple-500">AuthorityX</span>
+              <span className="text-2xl font-bold text-purple-800">AuthorityX</span>
             </Link>
           </div>
           
