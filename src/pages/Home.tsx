@@ -34,10 +34,20 @@ const Home = () => {
     };
   }, []);
 
+  // Fix any browser overflow when page loads
+  useEffect(() => {
+    document.body.style.overflow = 'auto';
+    document.body.style.overflowX = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <div className="flex-grow">
+      <div className="flex-grow w-full overflow-x-hidden">
         {/* Sectioned Components */}
         <HeroSection />
         <FeaturesSection />

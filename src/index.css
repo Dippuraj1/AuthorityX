@@ -1,4 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -46,6 +48,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden; /* Prevent horizontal overflow */
   }
 
   h1, h2, h3 {
@@ -110,13 +113,13 @@
 
   @keyframes float {
     0% {
-      transform: translateY(0px);
+      transform: translateY(0px) rotate(0deg);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translateY(-10px) rotate(5deg);
     }
     100% {
-      transform: translateY(0px);
+      transform: translateY(0px) rotate(0deg);
     }
   }
 }
@@ -206,4 +209,23 @@
 .dashboard-card:hover {
   @apply shadow-lg border-brand-purple/30;
   transform: translateY(-5px);
+}
+
+/* 3D shape animation enhancements */
+@keyframes float3d {
+  0% {
+    transform: perspective(800px) rotateX(10deg) rotateY(10deg) translateY(0);
+  }
+  50% {
+    transform: perspective(800px) rotateX(20deg) rotateY(15deg) translateY(-15px);
+  }
+  100% {
+    transform: perspective(800px) rotateX(10deg) rotateY(10deg) translateY(0);
+  }
+}
+
+.shape-3d {
+  filter: drop-shadow(5px 5px 10px rgba(155, 135, 245, 0.4));
+  animation: float3d 8s ease-in-out infinite;
+  transform-style: preserve-3d;
 }

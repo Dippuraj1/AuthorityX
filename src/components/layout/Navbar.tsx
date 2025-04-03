@@ -16,6 +16,11 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
   // Smooth scroll to section
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -42,35 +47,32 @@ const Navbar = () => {
             scrollToSection={scrollToSection}
           />
           
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center">
-            <Link to="/dashboard" className="mr-4">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white shadow-md hover:shadow-lg"
-              >
-                Dashboard
-              </Button>
-            </Link>
-            <button
+          {/* Mobile Menu Button - modified for better positioning */}
+          <div className="flex md:hidden">
+            <Button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-brand-purple focus:outline-none transition-colors"
+              variant="ghost"
+              size="icon"
+              className="mr-0 p-1 h-9 w-9 flex items-center justify-center focus:outline-none"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
               {isMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
+                <X className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu - positioned fixed for better mobile experience */}
-      <div className={`md:hidden fixed inset-x-0 top-16 z-50 transform ${isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"} transition-all duration-300 ease-in-out`}>
+      {/* Mobile menu - positioned fixed with updated styling */}
+      <div 
+        className={`md:hidden fixed inset-x-0 top-16 z-50 transform ${
+          isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+        } transition-all duration-300 ease-in-out`}
+      >
         <MobileMenu 
           isOpen={isMenuOpen}
           onClose={() => setIsMenuOpen(false)}

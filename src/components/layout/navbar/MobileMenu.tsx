@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { LogOut, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User as UserType } from "@supabase/supabase-js";
+import { Button } from "@/components/ui/button";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -32,7 +33,7 @@ const MobileMenu = ({ isOpen, onClose, user, signOut, location }: MobileMenuProp
 
   return (
     <div className="bg-background/95 backdrop-blur-md shadow-lg border-t border-gray-200 animate-fade-in-up">
-      <div className="px-2 pt-2 pb-3 space-y-1 max-h-[80vh] overflow-y-auto">
+      <div className="px-4 pt-2 pb-3 space-y-1 max-h-[70vh] overflow-y-auto">
         {location.pathname === "/" ? (
           <>
             <button
@@ -69,7 +70,8 @@ const MobileMenu = ({ isOpen, onClose, user, signOut, location }: MobileMenuProp
         >
           Dashboard
         </Link>
-        <div className="px-3 py-2">
+        
+        <div className="mt-4 border-t border-gray-200 pt-4 px-3">
           <div className="flex items-center gap-3 mb-3">
             <Avatar className="h-10 w-10">
               <AvatarImage src={user?.user_metadata?.avatar_url} />
@@ -84,7 +86,7 @@ const MobileMenu = ({ isOpen, onClose, user, signOut, location }: MobileMenuProp
               <p className="text-xs text-muted-foreground">{user?.email || "demo@example.com"}</p>
             </div>
           </div>
-          <button
+          <Button
             className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium border rounded-md border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-md hover:shadow-lg transition-all"
             onClick={() => {
               signOut();
@@ -93,7 +95,7 @@ const MobileMenu = ({ isOpen, onClose, user, signOut, location }: MobileMenuProp
           >
             <LogOut className="h-4 w-4" />
             Sign Out
-          </button>
+          </Button>
         </div>
       </div>
     </div>
