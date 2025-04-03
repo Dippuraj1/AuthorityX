@@ -9,7 +9,7 @@ const CTASection = () => {
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-brand-purple/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-brand-purple/5 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-brand-purple/50 rounded-full blur-3xl"></div>
         
         {/* Animated particles */}
         {[...Array(12)].map((_, i) => <div key={i} className="absolute rounded-full bg-brand-purple/30" style={{
