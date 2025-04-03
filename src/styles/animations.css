@@ -1,89 +1,87 @@
 
-@layer utilities {
-  .animate-float {
-    animation: float 10s ease-in-out infinite;
+.animate-float {
+  animation: float 10s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
   }
-  
-  @keyframes float {
-    0% {
-      transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-10px) rotate(5deg);
-    }
-    100% {
-      transform: translateY(0px) rotate(0deg);
-    }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
   }
-  
-  .hover-scale {
-    transition: transform 0.3s ease;
+  100% {
+    transform: translateY(0px) rotate(0deg);
   }
-  
-  .hover-scale:hover {
-    transform: scale(1.02);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(155, 135, 245, 0.6);
+}
+
+.button-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: button-glow 3s linear infinite;
+}
+
+@keyframes button-glow {
+  0% {
+    transform: scale(1.5) rotate(45deg) translate(-100%, -100%);
   }
-  
-  .shadow-glow {
-    box-shadow: 0 0 15px rgba(155, 135, 245, 0.6);
+  100% {
+    transform: scale(1.5) rotate(45deg) translate(100%, 100%);
   }
-  
-  .button-glow {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .button-glow::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to bottom right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.1) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(45deg);
-    animation: button-glow 3s linear infinite;
-  }
-  
-  @keyframes button-glow {
-    0% {
-      transform: scale(1.5) rotate(45deg) translate(-100%, -100%);
-    }
-    100% {
-      transform: scale(1.5) rotate(45deg) translate(100%, 100%);
-    }
-  }
-  
-  .glassmorphism {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-  }
-  
-  .testimonial-card-enter {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  .testimonial-card-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 500ms, transform 500ms;
-  }
-  
-  .testimonial-card-exit {
-    opacity: 1;
-  }
-  
-  .testimonial-card-exit-active {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 500ms, transform 500ms;
-  }
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-card-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.testimonial-card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.testimonial-card-exit {
+  opacity: 1;
+}
+
+.testimonial-card-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 500ms, transform 500ms;
 }

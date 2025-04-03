@@ -1,34 +1,32 @@
 
-@layer components {
-  .btn {
-    @apply rounded-lg font-bold transition-all duration-200 hover:shadow-[0_0_15px_rgba(155,135,245,0.5)];
-    font-family: 'Montserrat', sans-serif;
-  }
+.btn {
+  @apply rounded-lg font-bold transition-all duration-200 hover:shadow-[0_0_15px_rgba(155,135,245,0.5)];
+  font-family: 'Montserrat', sans-serif;
+}
 
-  .card {
-    @apply rounded-lg shadow-md border border-border hover:border-brand-purple/20 transition-all duration-300;
-  }
+.card {
+  @apply rounded-lg shadow-md border border-border hover:border-brand-purple/20 transition-all duration-300;
+}
 
-  .glass-card {
-    @apply bg-white/95 backdrop-blur-md border border-white/30 hover:border-brand-purple/20 transition-all duration-300 shadow-sm;
-  }
+.glass-card {
+  @apply bg-white/95 backdrop-blur-md border border-white/30 hover:border-brand-purple/20 transition-all duration-300 shadow-sm;
+}
 
-  .section-title {
-    @apply relative inline-block;
-  }
+.section-title {
+  @apply relative inline-block;
+}
 
-  .section-title::after {
-    content: '';
-    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-brand-purple rounded-full;
-  }
-  
-  /* Interactive dashboard card styles */
-  .dashboard-card {
-    @apply rounded-xl shadow-md border border-white/50 bg-white transition-all duration-300;
-  }
+.section-title::after {
+  content: '';
+  @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-brand-purple rounded-full;
+}
 
-  .dashboard-card:hover {
-    @apply shadow-lg border-brand-purple/30;
-    transform: translateY(-5px);
-  }
+/* Interactive dashboard card styles */
+.dashboard-card {
+  @apply rounded-xl shadow-md border border-white/50 bg-white transition-all duration-300;
+}
+
+.dashboard-card:hover {
+  @apply shadow-lg border-brand-purple/30;
+  transform: translateY(-5px);
 }
