@@ -1,0 +1,18 @@
+
+@layer utilities {
+  .hover-scale {
+    @apply transition-transform duration-300;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.03);
+  }
+
+  .glassmorphism {
+    @apply bg-white/95 backdrop-blur-md border border-white/30 hover:border-brand-purple/20 rounded-xl shadow-sm;
+  }
+
+  .button-glow:hover {
+    box-shadow: 0 0 15px rgba(155, 135, 245, 0.7);
+  }
+}
