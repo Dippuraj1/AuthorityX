@@ -1,70 +1,50 @@
-
 import { useState } from "react";
 import { ArrowRight, Circle, Square, Triangle, Hexagon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BookingModal from "./BookingModal";
 import VideoModal from "./VideoModal";
-
 const HeroSection = () => {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
-
-  return (
-    <section className="relative mt-0 pt-16 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
+  return <section className="relative mt-0 pt-16 pb-40 px-4 sm:px-6 lg:px-8 overflow-hidden bg-blue-600 text-white">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 bg-brand-purple"></div>
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-900/30 rounded-full blur-3xl"></div>
 
         {/* Semi-transparent geometric icons with microanimations */}
-        <Circle 
-          className="absolute text-white/20 animate-float" 
-          style={{
-            top: '15%',
-            left: '10%',
-            transform: 'rotate(0deg) scale(0.9)',
-            animationDuration: '8s',
-            animationDelay: '0.5s'
-          }}
-          size={36}
-        />
+        <Circle className="absolute text-white/20 animate-float" style={{
+        top: '15%',
+        left: '10%',
+        transform: 'rotate(0deg) scale(0.9)',
+        animationDuration: '8s',
+        animationDelay: '0.5s'
+      }} size={36} />
         
-        <Square 
-          className="absolute text-white/25 animate-float" 
-          style={{
-            top: '65%',
-            left: '20%',
-            transform: 'rotate(15deg) scale(0.7)',
-            animationDuration: '10s',
-            animationDelay: '1s'
-          }}
-          size={28}
-        />
+        <Square className="absolute text-white/25 animate-float" style={{
+        top: '65%',
+        left: '20%',
+        transform: 'rotate(15deg) scale(0.7)',
+        animationDuration: '10s',
+        animationDelay: '1s'
+      }} size={28} />
         
-        <Triangle 
-          className="absolute text-white/20 animate-float" 
-          style={{
-            top: '25%',
-            right: '15%',
-            transform: 'rotate(-10deg) scale(0.8)',
-            animationDuration: '9s',
-            animationDelay: '0s'
-          }}
-          size={32}
-        />
+        <Triangle className="absolute text-white/20 animate-float" style={{
+        top: '25%',
+        right: '15%',
+        transform: 'rotate(-10deg) scale(0.8)',
+        animationDuration: '9s',
+        animationDelay: '0s'
+      }} size={32} />
         
-        <Hexagon 
-          className="absolute text-white/30 animate-float" 
-          style={{
-            bottom: '20%',
-            right: '10%',
-            transform: 'rotate(5deg) scale(1)',
-            animationDuration: '7s',
-            animationDelay: '1.5s'
-          }}
-          size={40}
-        />
+        <Hexagon className="absolute text-white/30 animate-float" style={{
+        bottom: '20%',
+        right: '10%',
+        transform: 'rotate(5deg) scale(1)',
+        animationDuration: '7s',
+        animationDelay: '1.5s'
+      }} size={40} />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto text-center">
@@ -84,20 +64,11 @@ const HeroSection = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              onClick={() => setBookingModalOpen(true)}
-              size="lg" 
-              className="text-blue-600 bg-white hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-            >
+            <Button onClick={() => setBookingModalOpen(true)} size="lg" className="text-blue-600 bg-white hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
               Book Appointment
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-white text-gray-800 hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() => setVideoModalOpen(true)}
-            >
+            <Button variant="outline" size="lg" className="border-white text-gray-800 hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-semibold backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setVideoModalOpen(true)}>
               <span className="text-gray-800">Watch Demo</span>
             </Button>
           </div>
@@ -105,11 +76,9 @@ const HeroSection = () => {
           <div className="pt-10">
             <p className="text-blue-100 mb-4">Trusted by professionals from</p>
             <div className="flex flex-wrap justify-center gap-x-12 gap-y-6">
-              {["Google", "Microsoft", "Adobe", "LinkedIn", "Twitter"].map((company) => (
-                <div key={company} className="text-blue-100/80 text-xl font-semibold">
+              {["Google", "Microsoft", "Adobe", "LinkedIn", "Twitter"].map(company => <div key={company} className="text-blue-100/80 text-xl font-semibold">
                   {company}
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
@@ -119,14 +88,7 @@ const HeroSection = () => {
       <BookingModal open={bookingModalOpen} onOpenChange={setBookingModalOpen} />
       
       {/* Video Modal */}
-      <VideoModal 
-        open={videoModalOpen} 
-        onOpenChange={setVideoModalOpen} 
-        videoTitle="AuthorityX Demo"
-        videoDescription="See how AuthorityX transforms your personal brand with AI-powered tools."
-      />
-    </section>
-  );
+      <VideoModal open={videoModalOpen} onOpenChange={setVideoModalOpen} videoTitle="AuthorityX Demo" videoDescription="See how AuthorityX transforms your personal brand with AI-powered tools." />
+    </section>;
 };
-
 export default HeroSection;
