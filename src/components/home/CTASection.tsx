@@ -78,7 +78,7 @@ const CTASection = () => {
             </Button>
           </Link>
           
-          <Button variant="outline" className="border-brand-purple/30 text-foreground hover:bg-brand-purple/10 px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setBookingModalOpen(true)}>
+          <Button variant="outline" onClick={() => setBookingModalOpen(true)} className="border-brand-purple/30 hover:bg-brand-purple/10 px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 text-purple-800">
             Schedule Demo
           </Button>
         </div>
