@@ -74,14 +74,14 @@
   }
 
   h4 {
-    @apply text-xl md:text-2xl;
+    @apply text-lg md:text-xl; /* Reduced by 2px from the original */
   }
 
   h5 {
-    @apply text-lg md:text-xl;
+    @apply text-base md:text-lg; /* Reduced by 2px from the original */
   }
 
   h6 {
-    @apply text-base md:text-lg;
+    @apply text-sm md:text-base; /* Reduced by 2px from the original */
   }
 }

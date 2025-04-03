@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Circle, Square, Triangle, Hexagon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BookingModal from "./BookingModal";
 import VideoModal from "./VideoModal";
@@ -16,15 +16,63 @@ const HeroSection = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-blue-700"></div>
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-900/30 rounded-full blur-3xl"></div>
+
+        {/* Semi-transparent geometric icons with microanimations */}
+        <Circle 
+          className="absolute text-white/20 animate-float" 
+          style={{
+            top: '15%',
+            left: '10%',
+            transform: 'rotate(0deg) scale(0.9)',
+            animationDuration: '8s',
+            animationDelay: '0.5s'
+          }}
+          size={36}
+        />
+        
+        <Square 
+          className="absolute text-white/25 animate-float" 
+          style={{
+            top: '65%',
+            left: '20%',
+            transform: 'rotate(15deg) scale(0.7)',
+            animationDuration: '10s',
+            animationDelay: '1s'
+          }}
+          size={28}
+        />
+        
+        <Triangle 
+          className="absolute text-white/20 animate-float" 
+          style={{
+            top: '25%',
+            right: '15%',
+            transform: 'rotate(-10deg) scale(0.8)',
+            animationDuration: '9s',
+            animationDelay: '0s'
+          }}
+          size={32}
+        />
+        
+        <Hexagon 
+          className="absolute text-white/30 animate-float" 
+          style={{
+            bottom: '20%',
+            right: '10%',
+            transform: 'rotate(5deg) scale(1)',
+            animationDuration: '7s',
+            animationDelay: '1.5s'
+          }}
+          size={40}
+        />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto text-center">
         <div className="animate-fade-in space-y-10">
           <div className="space-y-8">
             <div>
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium mb-4">
-                <span className="text-blue-100">AI-Powered Personal Brand Platform</span>
-              </div>
+              {/* Removed the "AI-Powered Personal Brand Platform" text but kept the space */}
+              <div className="mb-4 h-8"></div>
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight md:leading-none">
                 Build an Authentic <br className="hidden md:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Personal Brand</span>
