@@ -1,14 +1,31 @@
 
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   LayoutDashboard, Calendar, PenTool, Share2, 
-  BarChart3, Settings, User, Menu, X, LogOut
+  BarChart3, Settings, User, LogOut
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai/AIAssistant";
 import AIAssistantToggle from "@/components/ai/AIAssistantToggle";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarInset,
+  SidebarSeparator,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -16,7 +33,6 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const location = useLocation();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { user, signOut } = useAuth();
 
   const navItems = [
@@ -29,141 +45,95 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     { icon: Settings, name: "Settings", path: "/dashboard/settings" },
   ];
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   // Get user name from context
   const firstName = user?.user_metadata?.first_name || "Demo";
   const lastName = user?.user_metadata?.last_name || "User";
 
   return (
-    <div className="min-h-screen bg-background flex">
-      {/* Sidebar for tablet and larger */}
-      <div className="hidden md:flex md:flex-col md:w-64 md:fixed md:inset-y-0 bg-card border-r border-border">
-        <div className="flex-1 flex flex-col min-h-0 pt-5">
-          <div className="flex items-center px-4 h-16">
-            <Link to="/" className="text-xl font-bold text-brand-purple">
-              AuthorityX
-            </Link>
-          </div>
-          <nav className="mt-8 flex-1 px-2 space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                  location.pathname === item.path
-                    ? "bg-brand-purple/20 text-brand-purple"
-                    : "text-foreground hover:bg-muted"
-                }`}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
+    <SidebarProvider defaultOpen={true}>
+      <div className="min-h-screen bg-background flex w-full">
+        <Sidebar collapsible="icon">
+          <SidebarHeader>
+            <div className="flex items-center h-16 px-4">
+              <Link to="/" className="text-xl font-bold text-brand-purple">
+                AuthorityX
               </Link>
-            ))}
-          </nav>
-          <div className="p-4 border-t border-border">
-            <div className="flex items-center">
-              <div className="h-8 w-8 rounded-full bg-brand-purple flex items-center justify-center">
-                <User className="h-4 w-4 text-white" />
-              </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium">{firstName} {lastName}</p>
-                <button 
-                  onClick={signOut}
-                  className="text-xs text-muted-foreground flex items-center"
-                >
-                  <LogOut className="h-3 w-3 mr-1" /> Logout
-                </button>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile sidebar */}
-      <div
-        className={`fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden transition-opacity duration-200 ${
-          isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={toggleSidebar}
-      ></div>
-
-      <div
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-card transform transition-transform duration-300 ease-in-out md:hidden ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="flex items-center justify-between h-16 px-4 border-b border-border">
-          <Link to="/" className="text-xl font-bold text-brand-purple">
-            AuthorityX
-          </Link>
-          <button
-            onClick={toggleSidebar}
-            className="text-foreground hover:text-brand-purple focus:outline-none"
-          >
-            <X className="h-6 w-6" />
-          </button>
-        </div>
-        <nav className="mt-4 flex-1 px-2 space-y-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                location.pathname === item.path
-                  ? "bg-brand-purple/20 text-brand-purple"
-                  : "text-foreground hover:bg-muted"
-              }`}
-              onClick={toggleSidebar}
-            >
-              <item.icon className="mr-3 h-5 w-5" />
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-        <div className="p-4 border-t border-border">
-          <div className="flex items-center">
-            <div className="h-8 w-8 rounded-full bg-brand-purple flex items-center justify-center">
-              <User className="h-4 w-4 text-white" />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium">{firstName} {lastName}</p>
-              <button onClick={signOut} className="text-xs text-muted-foreground flex items-center">
-                <LogOut className="h-3 w-3 mr-1" /> Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main content */}
-      <div className="md:pl-64 flex flex-col flex-1">
-        <div className="sticky top-0 z-10 flex items-center h-16 bg-background border-b border-border md:hidden px-4">
-          <button
-            onClick={toggleSidebar}
-            className="text-foreground hover:text-brand-purple focus:outline-none"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-          <div className="ml-4 text-xl font-bold text-brand-purple">AuthorityX</div>
-        </div>
-        <main className="flex-1 relative">
-          <div className="py-6 px-4 sm:px-6 lg:px-8">
-            {children}
-          </div>
+          </SidebarHeader>
           
-          {/* AI Assistant Toggle */}
-          <div className="fixed bottom-6 right-6 z-40">
-            <AIAssistantToggle />
-          </div>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {navItems.map((item) => (
+                    <SidebarMenuItem key={item.name}>
+                      <SidebarMenuButton 
+                        tooltip={item.name}
+                        isActive={location.pathname === item.path}
+                        asChild
+                      >
+                        <Link to={item.path}>
+                          <item.icon className="mr-3 h-5 w-5" />
+                          <span>{item.name}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
           
-          {/* AI Assistant Panel */}
-          <AIAssistant />
-        </main>
+          <SidebarFooter>
+            <SidebarSeparator />
+            <div className="p-4">
+              <div className="flex items-center">
+                <div className="h-8 w-8 rounded-full bg-brand-purple flex items-center justify-center">
+                  <User className="h-4 w-4 text-white" />
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium">{firstName} {lastName}</p>
+                  <Button 
+                    onClick={signOut}
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 px-2 text-xs text-muted-foreground"
+                  >
+                    <LogOut className="h-3 w-3 mr-1" /> Logout
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </SidebarFooter>
+          
+          <SidebarRail />
+        </Sidebar>
+        
+        <SidebarInset>
+          <div className="flex-1 relative">
+            <div className="sticky top-0 z-10 flex items-center h-16 bg-background border-b border-border px-4 md:hidden">
+              <SidebarTrigger />
+              <div className="ml-4 text-xl font-bold text-brand-purple">AuthorityX</div>
+            </div>
+            
+            <main>
+              <div className="py-6 px-4 sm:px-6 lg:px-8">
+                {children}
+              </div>
+              
+              {/* AI Assistant Toggle */}
+              <div className="fixed bottom-6 right-6 z-40">
+                <AIAssistantToggle />
+              </div>
+              
+              {/* AI Assistant Panel */}
+              <AIAssistant />
+            </main>
+          </div>
+        </SidebarInset>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
